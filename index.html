@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HIGenNTO: Scalable Humanoid Interaction Generation via Noise-Space Trajectory Optimization</title>
+  <meta name="description" content="HIGenNTO synthesizes humanoid-scene interaction motion references by optimizing the initial noise of a pretrained motion prior under sparse contact and scene constraints, with no interaction motion capture.">
+  <meta property="og:title" content="HIGenNTO">
+  <meta property="og:description" content="Scalable Humanoid Interaction Generation via Noise-Space Trajectory Optimization.">
+  <meta property="og:image" content="assets/media/teaser/og_thumbnail.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ===================== TOP BAR ===================== -->
+  <nav class="topbar" aria-label="Sections">
+    <div class="topbar__inner">
+      <a class="topbar__brand" href="#top">HIGenNTO</a>
+      <ul class="topbar__links" id="topbar-links">
+        <li><a href="#video">Video</a></li>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#motions">Motion sequences</a></li>
+        <li><a href="#execution">Execution</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#real">Real robot</a></li>
+        <li><a href="#bibtex">BibTeX</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero" id="top">
+    <div class="container">
+      <h1 class="wordmark">HIGenNTO</h1>
+      <p class="subtitle">Scalable Humanoid Interaction Generation via Noise&#8209;Space Trajectory Optimization</p>
+      <p class="authors-placeholder">&nbsp;</p>
+      <div class="links">
+        <a class="btn btn--disabled" title="Available upon publication"><span class="ico">&#128196;</span> Paper</a>
+        <a class="btn btn--disabled" title="Available upon publication"><span class="ico">&#9679;</span> Code</a>
+        <a class="btn btn--disabled" title="Available upon publication"><span class="ico">&#128451;</span> Dataset</a>
+        <a class="btn btn--disabled" title="Available upon publication"><span class="ico">&#128269;</span> Viewer</a>
+        <a class="btn" href="#video"><span class="ico">&#9658;</span> Video</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== TEASER ===================== -->
+  <section class="section section--tight">
+    <div class="container container--wide">
+      <video class="teaser" autoplay muted loop playsinline preload="metadata"
+             poster="assets/media/teaser/flyloop_poster.jpg">
+        <source src="assets/media/teaser/flyloop.mp4" type="video/mp4">
+      </video>
+      <p class="caption">
+        HIGenNTO synthesizes humanoid-scene interaction motion references by optimizing the initial noise of a
+        pretrained motion prior under sparse contact and scene constraints, with no interaction motion capture.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== VIDEO ===================== -->
+  <section id="video" class="section section--alt">
+    <div class="container">
+      <h2>Video</h2>
+      <video class="mounted" controls playsinline preload="metadata"
+             poster="assets/media/video/supplementary_poster.jpg">
+        <source src="assets/media/video/higennto_supplementary.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <!-- ===================== WHAT IT DOES ===================== -->
+  <section id="overview" class="section">
+    <div class="container">
+      <h2>What HIGenNTO does</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card__num">01</div>
+          <h3>Interaction synthesis in noise space</h3>
+          <p>A frozen, scene-unaware motion prior is made contact- and geometry-aware at optimization time:
+          losses on sparse spatiotemporal contact and scene constraints are backpropagated through the whole
+          denoising chain into the initial noise, with no retraining and no interaction motion capture.</p>
+        </div>
+        <div class="card">
+          <div class="card__num">02</div>
+          <h3>References physical policies execute</h3>
+          <p>Privileged teachers track the generated motion sequences in simulation; depth-conditioned students
+          keep 61-92% task success from onboard sensing alone and deploy on a Unitree G1.</p>
+        </div>
+        <div class="card">
+          <div class="card__num">03</div>
+          <h3>Task programs by a coding agent</h3>
+          <p>Tasks can be specified by a coding agent, which compiles task descriptions into prompt, constraint,
+          and scene programs. It can also identify behaviors from a motion dataset and author new tasks,
+          scene geometry included.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== METHOD ===================== -->
+  <section id="method" class="section section--alt">
+    <div class="container">
+      <h2>Method</h2>
+      <figure>
+        <img class="mounted" src="assets/media/method/methodology.png" alt="HIGenNTO system overview" loading="lazy">
+        <figcaption>
+          A task is a text prompt, sparse spatiotemporal constraints, and a scene signed-distance field.
+          HIGenNTO optimizes the initial noise of a frozen text-conditioned motion prior against the losses
+          on these constraints; the generated references train a tracking teacher that is distilled into a
+          depth-conditioned student.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===================== GENERATED MOTION SEQUENCES ===================== -->
+  <section id="motions" class="section">
+    <div class="container">
+      <h2>Generated motion sequences</h2>
+      <p class="sectionIntro">One formulation spans the task suite: the eight evaluated tasks and four further
+      behaviors whose task programs were written by a coding agent. One accent color per task.</p>
+      <div class="module" id="kinematic-module">
+        <ul class="pills" id="kinematic-pills"></ul>
+        <div class="stage">
+          <video class="mounted" id="kinematic-video" muted loop playsinline preload="none"></video>
+        </div>
+        <div class="pill-caption" id="kinematic-caption" aria-live="polite"></div>
+      </div>
+      <div class="dataset-card">
+        <div class="dataset-card__text">
+          <h3>HIGenNTO dataset</h3>
+          <p><span class="mono">1,251</span> motion sequences across <span class="mono">134</span> scenes and
+          <span class="mono">10</span> tasks at 50&nbsp;Hz, with scene geometry, object trajectories, and
+          contact labels. Browse it in 3D in the dataset viewer.</p>
+          <div class="links links--left">
+            <a class="btn btn--small btn--disabled" title="Available upon publication">Dataset</a>
+            <a class="btn btn--small btn--disabled" title="Available upon publication">Viewer</a>
+          </div>
+        </div>
+        <img src="assets/media/dataset/viewer.jpg" alt="Dataset viewer" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXECUTING THE REFERENCES ===================== -->
+  <section id="execution" class="section section--graphite">
+    <div class="container">
+      <h2>Executing the references</h2>
+      <p class="sectionIntro">For each task, a privileged teacher tracks the generated references; it is distilled
+      into a depth-conditioned student that observes only onboard depth and proprioception. SONIC, a
+      general-purpose scene-blind motion tracker run zero-shot from released weights, is shown for context.
+      In the teacher and SONIC videos, the blue humanoid (and box) is the generated reference
+      the policy is tracking.</p>
+      <div class="module" id="rollout-module">
+        <ul class="pills pills--tasks" id="rollout-task-pills"></ul>
+        <ul class="pills pills--arms" id="rollout-arm-pills"></ul>
+        <div class="stage">
+          <video class="mounted" id="rollout-video" muted loop playsinline preload="none"></video>
+        </div>
+        <div class="pill-caption" id="rollout-caption" aria-live="polite"></div>
+        <div class="metric-chip" id="rollout-metrics"></div>
+        <div class="fail-link"><a href="#" id="rollout-fail-toggle" hidden>see a failure case</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RESULTS ===================== -->
+  <section id="results" class="section">
+    <div class="container">
+      <h2>Results</h2>
+      <div class="plots">
+        <figure><img class="mounted" src="assets/media/results/summary_task_success.png" alt="Task success per task and arm" loading="lazy"></figure>
+        <figure><img class="mounted" src="assets/media/results/summary_tracking_errors.png" alt="Tracking errors per task and arm" loading="lazy"></figure>
+      </div>
+      <p class="caption">Task success and tracking errors across the eight evaluated tasks.</p>
+    </div>
+  </section>
+
+  <!-- ===================== REAL-WORLD DEPLOYMENT ===================== -->
+  <section id="real" class="section section--alt">
+    <div class="container">
+      <h2>Real-world deployment</h2>
+      <figure>
+        <img class="mounted" src="assets/media/real/figure_strips.png" alt="Real-robot deployment film strips" loading="lazy">
+      </figure>
+      <div class="module" id="real-module">
+        <ul class="pills" id="real-pills"></ul>
+        <div class="stage stage--narrow">
+          <video class="mounted" id="real-video" muted loop playsinline preload="none"></video>
+        </div>
+        <div class="pill-caption" id="real-caption" aria-live="polite"></div>
+      </div>
+      <p class="caption">Depth-conditioned students deployed on a Unitree G1 from onboard depth and proprioception.</p>
+    </div>
+  </section>
+
+  <!-- ===================== BIBTEX ===================== -->
+  <section id="bibtex" class="section">
+    <div class="container container--narrow">
+      <h2>BibTeX</h2>
+      <pre class="bibtex"><code>Citation will be added upon publication.</code></pre>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__fine">HIGenNTO project page.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js"></script>
+</body>
+</html>

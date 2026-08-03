@@ -1,0 +1,239 @@
+/* HIGenNTO project page — design system per scratch/storyboard/storyboard_website.md.
+   Neutrals let the renders carry the color; one violet chrome accent (#784AE6);
+   brand gradient blue -> purple -> magenta sampled from the task palette. */
+
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f4f5f7;
+  --ink: #16181d;
+  --muted: #5b6470;
+  --border: #e3e6ea;
+  --accent: #784ae6;
+  --graphite: #17191c;
+  --on-graphite: #e8eaed;
+  --on-graphite-muted: #9aa1ab;
+  --grad: linear-gradient(90deg, #255cde, #784ae6, #d9409e);
+  --radius: 14px;
+  --maxw: 1080px;
+  --narrow: 760px;
+  --wide: 1240px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.mono, code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.92em; }
+
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+.container--narrow { max-width: var(--narrow); }
+.container--wide { max-width: var(--wide); }
+
+/* ===================== TOP BAR ===================== */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto; scrollbar-width: none;
+}
+.topbar::-webkit-scrollbar { display: none; }
+/* width: max-content + auto margins: centered when it fits, scrollable when not */
+.topbar__inner {
+  display: flex; align-items: center; gap: 48px;
+  height: 62px; width: max-content;
+  margin: 0 auto; padding: 0 28px;
+}
+.topbar__brand {
+  font-weight: 700; font-size: 1.12rem; white-space: nowrap;
+  background: var(--grad);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+.topbar__brand:hover { text-decoration: none; }
+.topbar__links {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; gap: 30px;
+}
+.topbar__links a {
+  white-space: nowrap;
+  font-size: 0.97rem; font-weight: 500; color: var(--ink);
+  transition: color 0.2s ease;
+}
+.topbar__links a:hover { color: var(--accent); text-decoration: none; }
+.topbar__links a.active { color: var(--accent); }
+
+.section, .hero { scroll-margin-top: 72px; }
+
+/* ===================== HERO ===================== */
+.hero {
+  text-align: center;
+  padding: 84px 0 52px;
+  background:
+    radial-gradient(900px 360px at 50% -10%, rgba(120, 74, 230, 0.10), transparent 70%),
+    var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.wordmark {
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  margin: 0 0 4px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.subtitle {
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 0 auto 18px;
+  max-width: 880px;
+}
+.authors-placeholder { color: var(--muted); font-size: 1rem; margin: 0 0 26px; }
+
+.links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.links--left { justify-content: flex-start; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: #fff;
+  font-weight: 600; font-size: 0.95rem;
+  padding: 11px 22px; border-radius: 999px;
+  transition: transform 0.15s ease, background 0.15s ease;
+  cursor: pointer;
+}
+.btn:hover { background: var(--accent); text-decoration: none; transform: translateY(-2px); }
+.btn--small { padding: 8px 16px; font-size: 0.88rem; }
+.btn--disabled { background: #c6cad1; cursor: not-allowed; pointer-events: auto; }
+.btn--disabled:hover { background: #c6cad1; transform: none; }
+.btn .ico { font-size: 0.9em; line-height: 1; }
+
+/* ===================== SECTIONS ===================== */
+.section { padding: 64px 0; }
+.section--tight { padding: 40px 0; }
+.section--alt { background: var(--bg-alt); border-block: 1px solid var(--border); }
+.section--graphite { background: var(--graphite); color: var(--on-graphite); }
+.section--graphite h2 { color: var(--on-graphite); }
+.section--graphite .sectionIntro, .section--graphite .pill-caption { color: var(--on-graphite-muted); }
+
+.section h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700; letter-spacing: -0.02em;
+  text-align: center; margin: 0 0 28px;
+}
+.sectionIntro { text-align: center; color: var(--muted); max-width: 820px; margin: -12px auto 28px; font-size: 0.98rem; }
+
+/* ===================== MEDIA ===================== */
+.teaser, .mounted {
+  width: 100%; display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: #000;
+  box-shadow: 0 20px 50px -28px rgba(0, 0, 0, 0.4);
+}
+img.mounted { background: #fff; }
+.section--graphite .mounted { border-color: #2a2e35; }
+.caption { color: var(--muted); font-size: 0.95rem; max-width: 860px; margin: 18px auto 0; text-align: center; }
+.finePrint { font-size: 0.85em; opacity: 0.85; }
+figure { margin: 0; }
+figcaption { color: var(--muted); font-size: 0.95rem; margin-top: 14px; text-align: center; max-width: 920px; margin-inline: auto; }
+
+/* ===================== CARDS ===================== */
+.cards { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 26px 24px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -26px rgba(0, 0, 0, 0.35); }
+.card__num { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: var(--accent); margin-bottom: 10px; }
+.card h3 { font-size: 1.1rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+.card p { font-size: 0.95rem; color: var(--muted); margin: 0; }
+
+/* ===================== PILL MODULES ===================== */
+.module { margin-top: 8px; }
+.pills {
+  list-style: none; padding: 0; margin: 0 0 18px;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+}
+.pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.88rem; font-weight: 600;
+  padding: 7px 14px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--bg);
+  color: var(--ink); cursor: pointer; user-select: none;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+.pill:hover { border-color: var(--accent); }
+.pill.active { border-color: var(--accent); background: rgba(120, 74, 230, 0.08); }
+.pill .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--taskcolor, var(--accent)); }
+.pill .chip {
+  font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  background: rgba(217, 185, 138, 0.35); color: #7a5c2e;
+  border-radius: 6px; padding: 1px 6px;
+}
+.section--graphite .pill { background: transparent; color: var(--on-graphite); border-color: #2a2e35; }
+.section--graphite .pill:hover { border-color: var(--accent); }
+.section--graphite .pill.active { border-color: var(--accent); background: rgba(120, 74, 230, 0.18); }
+.pill[data-unavailable="1"] { opacity: 0.35; cursor: not-allowed; }
+
+.stage { max-width: 960px; margin: 0 auto; }
+.stage--narrow { max-width: 720px; }
+.pill-caption { text-align: center; color: var(--muted); font-size: 0.95rem; margin-top: 14px; min-height: 1.4em; }
+.metric-chip {
+  text-align: center; font-family: "JetBrains Mono", monospace; font-size: 0.85rem;
+  color: var(--on-graphite-muted); margin-top: 8px; min-height: 1.3em;
+}
+.fail-link { text-align: center; margin-top: 6px; font-size: 0.85rem; }
+
+/* ===================== DATASET CARD ===================== */
+.dataset-card {
+  display: grid; grid-template-columns: 1fr; gap: 20px;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 24px; margin-top: 36px; align-items: center;
+  background: var(--bg-alt);
+}
+.dataset-card h3 { margin: 0 0 8px; }
+.dataset-card p { color: var(--muted); font-size: 0.95rem; margin: 0 0 14px; }
+.dataset-card img { width: 100%; border-radius: 10px; border: 1px solid var(--border); }
+
+/* ===================== RESULTS ===================== */
+.plots { display: grid; grid-template-columns: 1fr; gap: 20px; }
+
+/* ===================== BIBTEX / FOOTER ===================== */
+.bibtex {
+  background: var(--ink); color: #e9edf2;
+  border-radius: var(--radius); padding: 24px;
+  overflow-x: auto; font-size: 0.85rem; line-height: 1.55;
+}
+.bibtex code { background: none; color: inherit; padding: 0; }
+.footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--muted); }
+.footer__fine { font-size: 0.82rem; opacity: 0.8; }
+
+/* ===================== RESPONSIVE ===================== */
+@media (min-width: 720px) {
+  .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .plots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dataset-card { grid-template-columns: 3fr 2fr; }
+}
+@media (max-width: 600px) {
+  .hero { padding: 56px 0 40px; }
+  .section { padding: 48px 0; }
+  .topbar__inner { height: 52px; gap: 26px; padding: 0 20px; }
+  .topbar__brand { font-size: 1rem; }
+  .topbar__links { gap: 18px; }
+  .topbar__links a { font-size: 0.9rem; }
+  .section, .hero { scroll-margin-top: 60px; }
+}
